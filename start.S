@@ -42,7 +42,7 @@ _start:
 /* 4. 重定位 : 把bootloader本身的代码从flash复制到它的链接地址去 */
 	ldr sp, =0x34000000 //设置栈
 
-	bl nand_inti
+	bl nand_init
 
 	mov r0, #0
 	ldr r1, =_start      //__bss_start段起始地址 - _start程序开始地址 得到代码段、数据段、只读数据段的长度
