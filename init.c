@@ -93,12 +93,12 @@ void nand_init ( void )
 
 void nand_select ( void )
 {
-	NFCONF &=~ ( 1<<1 ); //开启片选
+	NFCONT &= ~(1<<1);	
 }
 
 void nand_deselect ( void )
 {
-	NFCONF |= ( 1<<1 );
+	NFCONT |= (1<<1);	
 }
 
 void nand_cmd ( unsigned char cmd )
@@ -124,7 +124,7 @@ void nand_addr ( unsigned int addr )
 	for ( i = 0; i < 10; i++ ); //延时一会 等待数据发送
 	NFADDR = ( page>>8 ) &0xff;
 	for ( i = 0; i < 10; i++ ); //延时一会 等待数据发送
-	NFADDR =  page>>16&0xff;
+	NFADDR  = (page >> 16) & 0xff;
 	for ( i = 0; i < 10; i++ ); //延时一会 等待数据发送
 
 
@@ -164,7 +164,7 @@ void nand_read ( unsigned int addr, unsigned char* buf, unsigned int len )
 
 
 		/* 6. 读数据 */
-		for ( ; col < 2048; col++ ) //先读取一页数据
+		for ( ; (col < 2048)&&(i<len); col++ ) //先读取一页数据
 		{
 			buf[i] = nand_data();
 			i++;
@@ -239,7 +239,7 @@ void puthex ( unsigned int val )
         if((j>=0)&&(j<=9))
         	putc('0'+j); //以ascii码输出
         else 
-	        putc('a'+j-0x10);
+			putc('A' + j - 0xa);
 
 	}
 	puts ( "\r\n" );

@@ -3,7 +3,7 @@ SECTIONS{
      .text : {*(.text)} 	/*代码段*/
 
      . = ALIGN(4); 	/*下一段的起始地址向4取整*/
-     .rodata : {*(.rodata)} 	/*只读数据段*/
+     .rodata : {*(.rodata*)} 	/*只读数据段*/
 
       . = ALIGN(4);	
       .data : {*(.data)}	/*数据段*/
