@@ -21,6 +21,9 @@
 #define UBRDIV0     (*(volatile unsigned long *)0x50000028)
 #define TXD0READY   (1<<2)
 
+
+extern void nand_read ( unsigned int addr, unsigned char* buf, unsigned int len );
+
 int isBootFromNorFlash ( void )
 {
 	volatile int* p = ( volatile int* ) 0;
