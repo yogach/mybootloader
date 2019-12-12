@@ -1,7 +1,9 @@
 #define S3C2440_MPLL_200MHZ     ((0x5c<<12)|(0x01<<4)|(0x02))
+#define S3C2440_MPLL_400MHZ     ((0x5c<<12)|(0x01<<4)|(0x01))
 #define MEM_CTL_BASE    0x48000000
 #define WDT_CTL_BASE    0x53000000
 #define CLK_CTL_BASE    0x4c000014
+#define CLKDIVN   0x05// FCLK:HCLK:PCLK=1:2:4, HDIVN=1,PDIVN=1
 
 .text
 .global _start
@@ -15,17 +17,19 @@ _start:
 
 /* 2. 设置运行时钟 */
 	ldr r0, =CLK_CTL_BASE
-	mov r1, #0x03; //FCLK:HCLK:PCLK=1:2:4, HDIVN=1,PDIVN=1
+	ldr r1, =CLKDIVN 
+    //mov r1,#0x05
 	str r1, [r0]
 
 	/* 如果HDIVN非0，CPU的总线模式应该从“fast bus mode”变为“asynchronous bus mode” */
-    mrc p15, 0, r1, c1, c0, 0	/* 读出控制寄存器 */
+    mrc p15, 0, r1, c1, c0, 0	/* 读出控制寄存器 读入r1中*/
     orr r1, r1, #0xc0000000  	/* r1与0xc0000000做或运算 设置为“asynchronous bus mode” */
+    orr r1, r1, #(1<<12)        //开启icache 
     mcr p15, 0, r1, c1, c0, 0	/* 写入控制寄存器 */
 
     /* MPLLCON = S3C2440_MPLL_200MHZ */
 	ldr r0, =0x4c000004
-	ldr r1, =S3C2440_MPLL_200MHZ
+	ldr r1, =S3C2440_MPLL_400MHZ
 	str r1, [r0]
 
 /* 3. 初始化SDRAM */
