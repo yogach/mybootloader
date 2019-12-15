@@ -1,6 +1,9 @@
 SECTIONS{
      . = 0x33f80000; 	/*链接地址*/
-     .text : {*(.text)} 	/*代码段*/
+    .text : {
+            start.o (.text)
+            *(.text)
+            } 	/*代码段*/
 
      . = ALIGN(4); 	/*下一段的起始地址向4取整*/
      .rodata : {*(.rodata*)} 	/*只读数据段*/
