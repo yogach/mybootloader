@@ -1,5 +1,5 @@
 SECTIONS{
-     . = 0x33f80000; 	/*链接地址*/
+     . = 0x33f80000; 	/*代码段起始地址*/
     .text : {
             start.o (.text)
             *(.text)
