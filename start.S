@@ -59,7 +59,7 @@ _start:
 	
 /* 5. 执行main */
 	ldr lr, =halt
-	ldr pc, =main
+	ldr pc, =main  //位置有关码 跳转到SDRAM中的main函数执行
 
 halt:
 	b halt
