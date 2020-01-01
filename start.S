@@ -49,9 +49,9 @@ _start:
 	bl nand_init
 
 	mov r0, #0  //r0 设置为0 即u-boot在flash中的存储地址
-	ldr r1, =_start      //__bss_start段起始地址 - _start程序开始地址 得到代码段、数据段、只读数据段的长度
+	ldr r1, =_start //伪指令去取得_start上存放的地址 即取得_start的链接地址
 	ldr r2, =__bss_start
-	sub r2,r2,r1    //r2-r1 重新赋值给r2
+	sub r2,r2,r1    //__bss_start段起始地址 - _start程序开始地址 得到代码段、数据段、只读数据段的长度
 
 	bl copy_code_to_sdram // 拷贝代码到sdram r0 r1 r2 代表传给copy_code_to_sdram的三个参数
 	bl clear_bss
