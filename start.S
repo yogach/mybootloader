@@ -23,7 +23,7 @@ _start:
 
 	/* 如果HDIVN非0，CPU的总线模式应该从“fast bus mode”变为“asynchronous bus mode” */
     mrc p15, 0, r1, c1, c0, 0	/* 读出控制寄存器 读入r1中*/
-    orr r1, r1, #0xc0000000  	/* r1与0xc0000000做或运算 设置为“asynchronous bus mode” */
+    orr r1, r1, #0xc0000000  	/* r1与0xc0000000做或运算 设置为“asynchronous bus mode” 还有关闭MMU */
     orr r1, r1, #(1<<12)        //开启icache 
     mcr p15, 0, r1, c1, c0, 0	/* 写入控制寄存器 */
 
