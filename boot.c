@@ -101,7 +101,7 @@ int main(void)
 	/* 3. 跳转到内核开始地址执行 */
 	puts("Boot kernel\n\r");
     theKernel = (void (*)(int , int , unsigned int ))0x30008000;
-	theKernel(0,362,0x30000100); //362代表s3c2440在内核中的编号 0x30000100为tag存储的起始地址
+	theKernel(0,362,0x30000100); //362代表s3c2440在内核中的机器id 0x30000100为tag存储的起始地址
 
 
 	/* 如果一切正常, 不会执行到这里 */
